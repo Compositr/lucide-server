@@ -70,6 +70,4 @@ app.get("/custom/:icon", async (req, res) => {
 
 app.use("/icons", express.static(process.env.ICONS_PATH!));
 
-app.listen(process.env.NODE_ENV === "development" ? 1300 : 80);
-
-module.exports = app
+app.listen(1300);
