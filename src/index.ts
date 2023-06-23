@@ -5,6 +5,7 @@ import fs from "node:fs/promises";
 import helmet from "helmet";
 import sharp from "sharp";
 import { hexToRgb } from "./helpers/colours";
+import path from "node:path";
 
 const app = express();
 
@@ -24,7 +25,10 @@ app.get("/custom/:icon", async (req, res) => {
 
   try {
     const file = await fs.readFile(
-      `${process.env.ICONS_PATH}/${parsedIcon.data.replace(".png", "")}.svg`,
+      path.join(
+        __dirname,
+        `${process.env.ICONS_PATH}/${parsedIcon.data.replace(".png", "")}.svg`
+      ),
       "utf-8"
     );
 
