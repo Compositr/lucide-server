@@ -24,13 +24,12 @@ app.get("/custom/:icon", async (req, res) => {
     return res.status(400).send(zodResponse(parsedIcon.error));
 
   try {
-    const file = await fs.readFile(
-      path.join(
-        __dirname,
-        `${process.env.ICONS_PATH}/${parsedIcon.data.replace(".png", "")}.svg`
-      ),
-      "utf-8"
-    );
+    const file = await fetch(
+      `https://unpkg.com/lucide-static@latest/icons/${icon.replace(
+        ".png",
+        ""
+      )}.svg`
+    ).then((f) => f.text());
 
     const { size, stroke, background, strokeWidth } = query.data;
 
