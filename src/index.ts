@@ -1,11 +1,9 @@
 import express from "express";
 import { iconName, queryParams } from "./zod/query";
 import { zodResponse } from "./zod/zod";
-import fs from "node:fs/promises";
 import helmet from "helmet";
 import sharp from "sharp";
 import { hexToRgb } from "./helpers/colours";
-import path from "node:path";
 
 const app = express();
 
@@ -66,7 +64,5 @@ app.get("/custom/:icon", async (req, res) => {
     });
   }
 });
-
-app.use("/icons", express.static(process.env.ICONS_PATH!));
 
 app.listen(1300);
