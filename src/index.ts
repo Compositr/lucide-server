@@ -29,7 +29,7 @@ app.get("/custom/:icon", async (req, res) => {
       )}.svg`
     ).then((f) => f.text());
 
-    const { size, stroke, background, strokeWidth } = query.data;
+    const { size, stroke, background, strokeWidth, backgroundAlpha } = query.data;
 
     const transformer = sharp(
       Buffer.from(
@@ -44,7 +44,7 @@ app.get("/custom/:icon", async (req, res) => {
         background
           ? {
               background: {
-                alpha: 1,
+                alpha: backgroundAlpha,
                 ...hexToRgb(background),
               },
             }
@@ -57,6 +57,7 @@ app.get("/custom/:icon", async (req, res) => {
     console.log(
       `Processed ${icon} with size ${size}, stroke ${stroke}, background ${background}`
     );
+
   } catch (err) {
     console.error(err);
     return res.status(404).send({

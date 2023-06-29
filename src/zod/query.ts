@@ -6,17 +6,23 @@ const hexCode = z
 
 export const queryParams = z
   .object({
-    size: z.preprocess(
-      (arg) => parseInt(z.string().parse(arg), 10),
-      z.number().int().min(24).max(512)
-    ),
+    size: z.coerce.number().int().min(24).max(512),
     stroke: hexCode,
     background: hexCode,
+    backgroundAlpha: z.coerce.number().int().min(0).max(1),
     strokeWidth: z.preprocess(
       (arg) => parseFloat(z.string().parse(arg)),
       z.number().min(0.1).max(4)
     ),
   })
-  .partial();
+  .partial()
+  .refine(
+    (data) =>
+      !(data.backgroundAlpha !== undefined && data.background === undefined),
+    {
+      message: "background is required when backgroundAlpha is present",
+      path: ["background"],
+    }
+  );
 
 export const iconName = z.string().regex(/^([a-z]-?)+(\.png)?$/g);
