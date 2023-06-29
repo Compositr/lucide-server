@@ -9,7 +9,7 @@ export const queryParams = z
     size: z.coerce.number().int().min(24).max(512),
     stroke: hexCode,
     background: hexCode,
-    backgroundAlpha: z.coerce.number().min(0).max(1),
+    background_alpha: z.coerce.number().min(0).max(1),
     strokeWidth: z.preprocess(
       (arg) => parseFloat(z.string().parse(arg)),
       z.number().min(0.1).max(4)
@@ -18,7 +18,7 @@ export const queryParams = z
   .partial()
   .refine(
     (data) =>
-      !(data.backgroundAlpha !== undefined && data.background === undefined),
+      !(data.background_alpha !== undefined && data.background === undefined),
     {
       message: "background is required when backgroundAlpha is present",
       path: ["background"],
