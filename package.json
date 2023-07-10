@@ -1,5 +1,6 @@
 {
   "name": "lucide",
+  "version": "v2.0.0",
   "packageManager": "yarn@3.6.0",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
