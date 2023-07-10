@@ -20,7 +20,7 @@ export const queryParams = z
     (data) =>
       !(data.background_alpha !== undefined && data.background === undefined),
     {
-      message: "background is required when backgroundAlpha is present",
+      message: "background is required when background_alpha is present",
       path: ["background"],
     }
   );
