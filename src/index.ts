@@ -75,7 +75,11 @@ app.get("/custom/:icon", async (req, res) => {
       );
 
     const buffer = await transformer.toBuffer();
-    res.status(200).setHeader("Content-Type", "image/png").send(buffer);
+    res
+      .status(200)
+      .setHeader("Content-Type", "image/png")
+      .setHeader("Cache-Control", "public, max-age=31536000, immutable")
+      .send(buffer);
 
     console.log(
       `Processed ${icon} with size ${size}, stroke ${stroke}, background ${background}, discord_compatibility ${
