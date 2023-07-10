@@ -10,7 +10,7 @@ export const queryParams = z
     stroke: hexCode,
     background: hexCode,
     background_alpha: z.coerce.number().min(0).max(1),
-    strokeWidth: z.preprocess(
+    stroke_width: z.preprocess(
       (arg) => parseFloat(z.string().parse(arg)),
       z.number().min(0.1).max(4)
     ),

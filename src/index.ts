@@ -29,13 +29,14 @@ app.get("/custom/:icon", async (req, res) => {
       )}.svg`
     ).then((f) => f.text());
 
-    const { size, stroke, background, strokeWidth, background_alpha } = query.data;
+    const { size, stroke, background, stroke_width, background_alpha } =
+      query.data;
 
     const transformer = sharp(
       Buffer.from(
         file
           .replace('stroke="currentColor"', `stroke="#${stroke ?? "000000"}"`)
-          .replace('stroke-width="2"', `stroke-width="${strokeWidth ?? "2"}"`)
+          .replace('stroke-width="2"', `stroke-width="${stroke_width ?? "2"}"`)
       )
     )
       .resize(size ?? 64, size ?? 64)
@@ -57,7 +58,6 @@ app.get("/custom/:icon", async (req, res) => {
     console.log(
       `Processed ${icon} with size ${size}, stroke ${stroke}, background ${background}`
     );
-
   } catch (err) {
     console.error(err);
     return res.status(404).send({
