@@ -1,3 +1,7 @@
+# v2.1.0
+
+- Added `Cache-Control` header to enable caching
+
 # v2.0.0
 
 - Added `discord_compatibility` query param which adds an 8px border around the image so Discord embed icons don't get their edges cut due to rounding
