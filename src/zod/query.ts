@@ -10,10 +10,7 @@ export const queryParams = z
     stroke: hexCode,
     background: hexCode,
     background_alpha: z.coerce.number().min(0).max(1),
-    stroke_width: z.preprocess(
-      (arg) => parseFloat(z.string().parse(arg)),
-      z.number().min(0.1).max(4)
-    ),
+    stroke_width: z.coerce.number().min(0.1).max(4),
     // check if arg exists (is in object), if yes the user has provided ?discord_compatibility
     discord_compatibility: z.preprocess(() => true, z.boolean()),
   })
