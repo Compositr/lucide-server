@@ -14,6 +14,8 @@ export const queryParams = z
       (arg) => parseFloat(z.string().parse(arg)),
       z.number().min(0.1).max(4)
     ),
+    // check if arg exists (is in object), if yes the user has provided ?discord_compatibility
+    discord_compatibility: z.preprocess(() => true, z.boolean()),
   })
   .partial()
   .refine(

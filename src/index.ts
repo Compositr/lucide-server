@@ -29,8 +29,14 @@ app.get("/custom/:icon", async (req, res) => {
       )}.svg`
     ).then((f) => f.text());
 
-    const { size, stroke, background, stroke_width, background_alpha } =
-      query.data;
+    const {
+      size,
+      stroke,
+      background,
+      stroke_width,
+      background_alpha,
+      discord_compatibility,
+    } = query.data;
 
     const transformer = sharp(
       Buffer.from(
@@ -50,13 +56,31 @@ app.get("/custom/:icon", async (req, res) => {
               },
             }
           : false
+      )
+      .extend(
+        discord_compatibility
+          ? {
+              top: 8,
+              bottom: 8,
+              left: 8,
+              right: 8,
+              background: {
+                alpha: 0,
+                r: 0,
+                b: 0,
+                g: 0,
+              },
+            }
+          : {}
       );
 
     const buffer = await transformer.toBuffer();
     res.status(200).setHeader("Content-Type", "image/png").send(buffer);
 
     console.log(
-      `Processed ${icon} with size ${size}, stroke ${stroke}, background ${background}`
+      `Processed ${icon} with size ${size}, stroke ${stroke}, background ${background}, discord_compatibility ${
+        discord_compatibility ?? "false"
+      }`
     );
   } catch (err) {
     console.error(err);
